@@ -89,7 +89,7 @@ select count(*) from sungjuk where tot is null; --null값 확인해야하는 경우. 5
 -- 평균에 비어있지 않은 행의 갯수를 구하시오 (null이 아닌 값
 select count(*) from sungjuk where aver is not null;
 
---문6) 비어있는 총점과 평균을 모두 구하시오SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS
+--문6) 비어있는 총점과 평균을 모두 구하시오
 
 update sungjuk
 set tot=kor+eng+mat, aver=(kor+eng+mat)/3

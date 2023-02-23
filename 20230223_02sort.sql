@@ -7,7 +7,7 @@
    - 특정값(keyfield)을 기준으로 순서대로 재배치
   - 오름차순 Ascending Sort   ASC  생략하면 기본값  1->10  A->Z  a->z  ㄱ->ㅎ
   - 내림차순 Descending Sort  DESC
-  - 형식) order bㅛ  칼럼명2, 컬럼명3. 컬럼명3, ....~
+  - 형식) order by  칼럼명2, 컬럼명3. 컬럼명3, ....~
   
   
 sungjuck 테이블을 조회하시오
