@@ -14,7 +14,7 @@ alter table sungjuk add(music int null);
 select * from sungjuk;
 
 
-2.  컬럼명 수정
+2.  컬럼명 수정z`
     형식) alter table table명 rename column 원래컬럼명 to 바꿀컬럼명;
     
 -- 국어컬럼 kor를 korea컬럼명으로 수정하시오
