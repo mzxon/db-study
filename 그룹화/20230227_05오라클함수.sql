@@ -137,7 +137,7 @@ select nvl(max(sno), 0)+1 from sungjuk;
 insert into sungjuk(sno, uname, kor, eng, mat, addr, wdate)
 values((select nvl(max(sno), 0)+1 from sungjuk), 'º’»ÔπŒ', 100, 100, 100, 'Seoul', sysdate);
 
-select * from sungjuk;
+select * from sungjuk;0
 delete from sungjuk where sno=52;
 commit;
 
