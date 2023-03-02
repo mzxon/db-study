@@ -364,14 +364,16 @@ where trunc((sysdate-hiredate)/365) = (select trunc((sysdate-hiredate)/365) from
 
 select * from emp;
 
-문43) 입사한지 만15년 이상된 사람에 한해 현재연봉에서 10% 인상시켰을 때 
+문43) 입사한지 만20년 이상된 사람에 한해 현재연봉에서 10% 인상시켰을 때 
       사번, 이름, 입사일, 현재연봉, 인상후연봉, 인상된금액으로 고액연봉순으로 조회하시오
       연봉구하는 식 : 급여(sal)*12개월+보너스(comm)
 
-select empno 사번, ename 이름, hiredate 입사일, nvl(sal*12+comm,0) 현재연봉, round(nvl((sal*12+comm)+(sal*12+comm)*0.1,0),1) 인상된연봉
+select empno 사번, ename 이름, hiredate 입사일, sal*12+nvl(comm,0) 현재연봉
+                , round((sal*12+nvl(comm,0)) + ((sal*12+nvl(comm,0))*0.1),0) 최종연봉
+                
 from emp
-where trunc((sysdate-hiredate)/365) >=15
-order by nvl((sal*12+comm)+(sal*12+comm)*0.1,0) desc;
+where trunc((sysdate-hiredate)/365) >=20
+order by 최종연봉 desc;
 
 
 문44) 입사년도가 짝수인 직원들의 급여의 평균을 job별로 출력하시오
