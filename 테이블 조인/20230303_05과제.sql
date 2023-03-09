@@ -9,17 +9,57 @@ select * from tb_student;
 select * from tb_sugang;
 select * from tb_gwamok;
 
-select BB.hakno, ST.uname, BB.gcode
-from (
-        select AA.gcode, AA.ghakjum, SU.hakno
-        from (        
-                select gcode, ghakjum
+--디자인 교과목의 학점 조회하기
+
+select * from tb_gwamok where gcode like 'd%' order by ghakjum desc;
+
+--1) 디자인 교과목중에서 학점이 제일 많은 학점 조회하기
+select max(ghakjum)     --5
+from tb_gwamok
+where gcode like 'd%';
+
+--2) 1)결과에서 나온 학점(5)과 동일한 학점을 갖고 있는 행에서 과목코드 선택
+--  즉, 디자인 교과목중에서 학점이 제일 많은 과목코드 (단, 중복된 학점이 없다는 가정하에)
+select gcode
+from tb_gwamok
+where ghakjum=(5)
+and gcode like 'd%';    --d002
+
+select gcode
+from tb_gwamok
+where ghakjum=(select max(ghakjum) from tb_gwamok where gcode like 'd%')
+and gcode like 'd%';    --d002
+
+--3) 2)에서 나온 과목코드(d002)를 수강신청한 명단을 조회
+select gcode, hakno from tb_sugang where gcode=('d002');
+
+select gcode, hakno
+from tb_sugang
+where gcode=(
+                select gcode
                 from tb_gwamok
-                where gcode LIKE '%d%' and ghakjum=(select max(ghakjum) from tb_gwamok)
-             ) AA join tb_sugang SU on AA.gcode = SU.gcode
-     ) BB join tb_student ST on BB.hakno = ST.hakno;
-     
-    
+                where ghakjum=(select max(ghakjum) from tb_gwamok where gcode like 'd%')
+                and gcode like 'd%'
+            );
+            
+--4) 3)의 결과를 AA테이블로 만든 후, 학생 테이블 조인해서 이름 가져오기
+select ST.uname, AA.hakno, AA.gcode
+from(
+        select gcode, hakno
+        from tb_sugang
+        where gcode=(
+                        select gcode
+                        from tb_gwamok
+                        where ghakjum=(select max(ghakjum) from tb_gwamok where gcode like 'd%')
+                        and gcode like 'd%'
+                    )
+
+    ) AA join tb_student ST on AA.hakno = ST.hakno;
+
+
+
+
+
 
 
 
